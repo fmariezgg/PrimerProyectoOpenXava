@@ -25,3 +25,42 @@ INSERT INTO PRODUCTO VALUES(123,'ds',NULL,'',32.00,NULL)
 COMMIT
 INSERT INTO PRODUCTO VALUES(213,'df',NULL,'',213.00,'ff8080819a3786aa019a37889d700000')
 COMMIT
+/*C7*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C8*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C9*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C10*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C11*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C12*/SET SCHEMA PUBLIC
+create table Factura (oid varchar(32) not null, anyo integer, fecha date, numero integer, observaciones varchar(255), primary key (oid))
+DELETE FROM PRODUCTO WHERE NUMERO=23
+DELETE FROM PRODUCTO WHERE NUMERO=123
+DELETE FROM PRODUCTO WHERE NUMERO=213
+COMMIT
+DELETE FROM CLIENTE WHERE NUMERO=23
+COMMIT
+DISCONNECT
+/*C13*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C14*/SET SCHEMA PUBLIC
+create table DETALLES (oid varchar(32) not null, cantidad integer not null, precio numeric(19,2), FACTURA_OID varchar(32), producto_numero integer, primary key (oid))
+alter table Factura add column cliente_numero integer not null
+alter table DETALLES add constraint FK2qrslrbeaat99emrfc479v5eq foreign key (FACTURA_OID) references Factura
+alter table DETALLES add constraint FKq1c4i29pmcomyri3e7dqci59f foreign key (producto_numero) references Producto
+alter table Factura add constraint FKmd10sg74xw8mq3d2m9k2kxual foreign key (cliente_numero) references Cliente
+DISCONNECT
+/*C15*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C16*/SET SCHEMA PUBLIC
+create table Autor (oid varchar(32) not null, nombre varchar(50), primary key (oid))
+alter table Producto add column autor_oid varchar(32)
+alter table Producto add constraint FKmtkejrnklbkimttu99b9jqufw foreign key (autor_oid) references Autor
+DISCONNECT
+/*C17*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C18*/SET SCHEMA PUBLIC
+DISCONNECT

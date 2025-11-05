@@ -1,10 +1,14 @@
 package ni.edu.uam.facturacion.modelo;
+
 import javax.persistence.*;
 import org.openxava.annotations.*;
 import lombok.*;
 import java.math.BigDecimal;
 
 @Entity @Getter @Setter
+@View(members =
+        "numero; descripcion, categoria; precio; autor; fotos; observaciones"
+)
 public class Producto {
     @Id
     private int numero;
@@ -12,17 +16,21 @@ public class Producto {
     @Column(length=50) @Required
     private String descripcion;
 
-    @ManyToOne(fetch = FetchType.LAZY) // La referencia se almacena como una relación en la base de datos
-    @DescriptionsList // Así la referencia se visualiza usando un combo
-    private Categoria categoria; // Una referencia Java convencional
+    @ManyToOne(fetch = FetchType.LAZY)
+    @DescriptionsList
+    private Categoria categoria;
 
-    @Money // La propiedad precio se usa para almacenar dinero
-    private BigDecimal precio; // BigDecimal se suele usar para dinero
+    @Money
+    private BigDecimal precio;
 
-    @Files // Una galería de fotos completa está disponible
-    @Column(length=32) // La cadena de 32 de longitud es para almacenar la clave de la galería
+    @ManyToOne(fetch = FetchType.LAZY)
+    @DescriptionsList
+    private Autor autor;
+
+    @Files
+    @Column(length=32)
     private String fotos;
 
-    @TextArea // Esto es para un texto grande, se usará un área de texto o equivalente
+    @TextArea
     private String observaciones;
 }

@@ -6,9 +6,14 @@ import lombok.*;
 
 @Entity // Marca la clase como entidad JPA
 @Getter @Setter
+@View(name="Simple", // Esta vista solo se usará cuando se especifique "Simple"
+        members="numero, nombre" // Muestra únicamente numero y nombre en la misma línea
+)
 public class Cliente {
 
     @Id // La propiedad numero es la clave
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Hidden
     private int numero;
 
     @Column(length = 50) // Longitud para la columna nombre
